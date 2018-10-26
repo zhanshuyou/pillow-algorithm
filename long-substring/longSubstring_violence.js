@@ -13,10 +13,10 @@ const longSubstring = (str) => {
 }
 
 const isUniq = (str, start, end) => {
-  let tempStr = ''
+  let tempSet = new Set()
   for (let i = start; i < end; i ++) {
-    if (!tempStr.includes(str[i])) {
-      tempStr += str[i]
+    if (!tempSet.has(str[i])) {
+      tempSet.add(str[i])
     } else {
       return false
     }
