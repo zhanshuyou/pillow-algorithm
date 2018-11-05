@@ -1,33 +1,29 @@
-const convert = (s, numRows) => {
-  let x = 0
-  let y = 0
-  let temp = {}
-  let direction = ''
-  for (let i = 0; i < s.length; i ++) {
-    temp[`${x}${y}`] = s[i]
-    if (y === 0) {
-      direction = 'down'
-    } else if (y === numRows - 1) {
-      direction = 'up'
-    }
-    if (direction === 'down') {
-      y += 1
-    } else {
-      x += 1
-      y -= 1
-    }
+var convert = function(s, numRows) {
+  if (numRows === 1) { return s }
+
+  const maxRows = Math.min(numRows, s.length)
+  const result = []
+  for (let i = 0; i < maxRows; i++) {
+    result[i] = ''
   }
 
-  let result = ''
-  for (let n = 0; n <= numRows - 1; n++) {
-    for (let m = 0; m <=x; m++) {
-      if (temp[`${m}${n}`]) {
-        result += temp[`${m}${n}`]
-      }
-    }
+  let currentRow = 0
+  let isDown = false
+
+  for (let i = 0; i < s.length; i ++) {
+    result[currentRow] += s[i]
+    if (currentRow == 0 || currentRow == numRows - 1) isDown = !isDown
+    currentRow += isDown ? 1 : -1
   }
-  return result
+
+  let resultStr = ''
+  result.forEach((str) => {
+    resultStr += str
+  })
+  return resultStr
 }
 
 console.log(convert("PAYPALISHIRING", 3))
 console.log(convert('PAYPALISHIRING', 4))
+console.log(convert('AB', 1))
+console.log(convert("Apalindromeisaword,phrase,number,orothersequenceofunitsthatcanbereadthesamewayineitherdirection,withgeneralallowancesforadjustmentstopunctuationandworddividers.", 55))
