@@ -1,6 +1,5 @@
 function letterCombinations(digits: string): string[] {
   const combinations = new Combinations(digits)
-  combinations.backtrack(0)
   return combinations.getCombinations()
 };
 
@@ -23,7 +22,7 @@ class Combinations {
       this.digits = digits
   }
 
-  public backtrack(index: number) {
+  private backtrack(index: number) {
       if (index === this.digits.length) {
           this.combinations.push(this.combination.join(''))
       } else {
@@ -37,6 +36,11 @@ class Combinations {
   }
 
   public getCombinations() {
+      if (!this.digits) {
+          return []
+      }
+
+      this.backtrack(0)
       return this.combinations
   }
 }
